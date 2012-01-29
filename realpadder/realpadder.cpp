@@ -3,7 +3,6 @@
 #include<vector>
 void v_pad(std::vector<char>*v, std::vector<char>*p);
 void s_pad(std::string* s, std::string* p);
-void c_pad(char* s, char* p);
 int main()
 {
 	std::vector<char>* v = new std::vector<char>;
@@ -36,11 +35,6 @@ int main()
 	std::cout << *s << std::endl;
 	std::cout << std::endl;
 
-	char s3[] = "bleh";
-	char p3[] = "%20";
-	c_pad(s3,p3);
-	
-	std::cout << std::endl;
 	return 0;
 }
 
