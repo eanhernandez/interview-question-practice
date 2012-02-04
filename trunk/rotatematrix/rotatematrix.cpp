@@ -48,11 +48,11 @@ void rotate(std::vector< std:: vector<char> >* v)
 		{
 			if (v->at(i).at(j) != 'X')
 			{
-				temp = v->at(i).at(j);
-				v->at(i).at(j)=v->at(j).at(h-1-i);
-				v->at(j).at(h-1-i) = v->at(w-1-i).at(h-1-j);
-				v->at(w-1-i).at(h-1-j) = v->at(w-1-j).at(h-1-i);
-				v->at(w-1-j).at(h-1-j)= temp;
+				temp = v->at(j).at(h-1-i);
+				v->at(j).at(h-1-i)=v->at(w-1-i).at(h-j);
+				v->at(w-1-i).at(h-j) = v->at(w-1-j).at(i);
+				v->at(w-1-j).at(i) = v->at(i).at(j);
+				v->at(i).at(j)= temp;
 			}
 		}
 	}
