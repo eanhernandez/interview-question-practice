@@ -23,23 +23,29 @@ class L
 	}
 };
 
-void ms(L* _l, int first, int last)
+void ms(L* first, L* last)
 {
-	if (last > first)
+	L* temp = first;
+	L* mid = first ;
+	if (first != last)
 	{
-		ms(l,first,(int)(last/2));
-		ms(l,(int)(last/2),last);
-		m(l,first,(int)(last/2),last);
-	}
-}
-void m(L* _l,int first, int mid, int last)
-{
-	L* temp = new L();
-	L* f;
-	L* m;
-	L* l;
+		while(temp != last)
+		{
+			mid = mid->next;
+			temp = temp->next->next;
+		}
 
-	for (int i=
+		ms(first,mid);
+		ms(mid->next,last);
+		while (first != last)
+		{
+			if (first->i > mid->i)
+			{
+				
+			}
+		}
+	}
+
 }
 
 int main()
