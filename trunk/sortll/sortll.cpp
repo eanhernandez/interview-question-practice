@@ -23,25 +23,43 @@ class L
 	}
 };
 
+bool compare(L* a, L* b)
+{
+	if (!a) {return false;}
+	if (!b) {return true;}
+	if (a->i > b->i) {return true;}
+	return false;
+}
+
 void ms(L* first, L* last)
 {
 	L* temp = first;
 	L* mid = first ;
+	L* seclast = first;
 	if (first != last)
 	{
 		while(temp != last)
 		{
+			seclast = mid;
 			mid = mid->next;
 			temp = temp->next->next;
 		}
-
+		L* hold = new L();
+		seclast->next = NULL;
 		ms(first,mid);
 		ms(mid->next,last);
+		
 		while (first != last)
 		{
-			if (first->i > mid->i)
+			if (compare(first,mid))
 			{
-				
+				hold->i = first->i;
+				first = first->next;
+			}
+			else
+			{
+				hold->i = mid->i;
+				mid = mid->next;
 			}
 		}
 	}
