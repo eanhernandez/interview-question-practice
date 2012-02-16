@@ -33,35 +33,42 @@ bool compare(L* a, L* b)
 
 void ms(L* first, L* last)
 {
-	L* temp = first;
-	L* mid = first ;
-	L* seclast = first;
+	L* x = first;
+	L* y = first;
+	L* z = first;
+	L* y_less_one = first;
+
 	if (first != last)
 	{
-		while(temp != last)
+		while(z)
 		{
-			seclast = mid;
-			mid = mid->next;
-			temp = temp->next->next;
+			y_less_one = y;
+			y = y->next;
+			z = z->next->next;
 		}
 		L* hold = new L();
-		seclast->next = NULL;
-		ms(first,mid);
-		ms(mid->next,last);
-		
-		while (first != last)
+		ms(x,y);
+		ms(y->next,z);
+			
+		y_less_one->next = NULL;
+		L* hold_start = hold;
+		while (x && y)
 		{
-			if (compare(first,mid))
+			if (compare(x,y))
 			{
-				hold->i = first->i;
-				first = first->next;
+				hold->i = x->i;
+				hold = hold->next;
+				x = x->next;
 			}
 			else
 			{
-				hold->i = mid->i;
-				mid = mid->next;
+				hold->i = y->i;
+				hold = hold->next;
+			 	y = y->next;	
 			}
 		}
+		start = hold_start;
+
 	}
 
 }
