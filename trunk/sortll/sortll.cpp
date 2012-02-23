@@ -31,45 +31,59 @@ bool compare(L* a, L* b)
 	return false;
 }
 
-void ms(L* first, L* last)
+L* ms(L* first, L* last)
 {
+
+	std::cout << std::endl << first->i << " , " << last->i << std::endl;
+	std::cin.ignore();
 	L* x = first;
 	L* y = first;
 	L* z = first;
 	L* y_less_one = first;
+	L* result;
+	L* result_start = result;
+	if (!first->next){
+			std::cout << "break";
+			return first;
+		}	// base case
 
-	if (first != last)
+	std::cout << "here" << std::endl;
+	while(z->next->next)
 	{
-		while(z)
-		{
-			y_less_one = y;
-			y = y->next;
-			z = z->next->next;
-		}
-		L* hold = new L();
-		ms(x,y);
-		ms(y->next,z);
-			
-		y_less_one->next = NULL;
-		L* hold_start = hold;
-		while (x && y)
-		{
-			if (compare(x,y))
-			{
-				hold->i = x->i;
-				hold = hold->next;
-				x = x->next;
-			}
-			else
-			{
-				hold->i = y->i;
-				hold = hold->next;
-			 	y = y->next;	
-			}
-		}
-		start = hold_start;
-
+		y_less_one = y;
+		y = y->next;
+		z = z->next->next;
 	}
+	if (z->next)
+	{
+		y_less_one = y;
+		y = y->next;
+		z = z->next;
+	}
+		
+
+	std::cout << x->i << " " << y_less_one->i << " " << y->i << " " << z->i <<std::endl;
+	y_less_one->next=NULL;
+
+	first = ms(x,y_less_one);					
+	last = ms(y,z);
+		 
+	std::cout << "here";
+	while (first || last)
+	{
+		if (compare(first,last))
+		{
+			result->next = first;
+			first=first->next;
+		}
+		else
+		{
+		 	result->next = last;
+			last=last->next;
+		}
+		result=result->next;
+	}
+	return result;
 
 }
 
@@ -82,6 +96,9 @@ int main()
 	l->add(16);
 	l->add(7);
 
+	l->show(l);
+
+	ms(l,l->next->next->next);
 	l->show(l);
 
 	std::cout << "blrffpt" << std::endl;
