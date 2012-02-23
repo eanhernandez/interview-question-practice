@@ -5,6 +5,9 @@ class L
 
 	int i;
 	L* next;
+
+	L():next(NULL){};
+
 	void add(int _i)
 	{
 		L* temp = new L();
@@ -34,7 +37,8 @@ bool compare(L* a, L* b)
 L* ms(L* first, L* last)
 {
 
-	std::cout << std::endl << first->i << " , " << last->i << std::endl;
+	std::cout << std::endl << first->i << " , " << last->i;
+	std::cout << " " << first->next << " , " << last->next << std::endl;
 	std::cin.ignore();
 	L* x = first;
 	L* y = first;
@@ -42,28 +46,31 @@ L* ms(L* first, L* last)
 	L* y_less_one = first;
 	L* result;
 	L* result_start = result;
-	if (!first->next){
+	std::cout << "before test" << std::endl;
+	if (!(first->next)) 
+	{
 			std::cout << "break";
 			return first;
 		}	// base case
 
-	std::cout << "here" << std::endl;
+	std::cout << "after test" << std::endl;
 	while(z->next->next)
 	{
 		y_less_one = y;
 		y = y->next;
 		z = z->next->next;
 	}
-	if (z->next)
+	while (z->next)
 	{
 		y_less_one = y;
 		y = y->next;
 		z = z->next;
 	}
-		
+	
 
 	std::cout << x->i << " " << y_less_one->i << " " << y->i << " " << z->i <<std::endl;
-	y_less_one->next=NULL;
+	y_less_one->next=0;
+	z->next=0;
 
 	first = ms(x,y_less_one);					
 	last = ms(y,z);
