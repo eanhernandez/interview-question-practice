@@ -5,8 +5,19 @@ class L
 
 	int i;
 	L* next;
+	L():next(0)	{}
 
-	L():next(NULL){};
+	L* tail(L* _l)
+	{
+		if (_l->next)
+		{
+			return tail(_l->next);
+		}
+		else
+		{
+			return _l;
+		}
+	}
 
 	void add(int _i)
 	{
@@ -18,7 +29,7 @@ class L
 	}
 	void show(L* _l)
 	{
-		if (_l != NULL)
+		if (_l)
 		{
 			std::cout << _l->i <<  " " ;
 			show(_l->next);
@@ -30,68 +41,59 @@ bool compare(L* a, L* b)
 {
 	if (!a) {return false;}
 	if (!b) {return true;}
-	if (a->i > b->i) {return true;}
+	if (a->i < b->i) {return true;}
 	return false;
 }
 
-L* ms(L* first, L* last)
+L* ms(L* a, L* b)
 {
-
-	std::cout << std::endl << first->i << " , " << last->i;
-	std::cout << " " << first->next << " , " << last->next << std::endl;
-	std::cin.ignore();
-	L* x = first;
-	L* y = first;
-	L* z = first;
-	L* y_less_one = first;
-	L* result;
-	L* result_start = result;
-	std::cout << "before test" << std::endl;
-	if (!(first->next)) 
+	L* y = a;	// these are all for counting across the LL
+	L* z = a;	// so I can get beginning, mid1, mid, and end
+	L* y_less_one = a;
+	
+	L* H = new L();	// these are for tracking Head and Start of the LL
+	L* S;
+	S = H;
+	
+	if (a->next == b->next)	// base case for when it's down to just one number
 	{
-			std::cout << "break";
-			return first;
-		}	// base case
-
-	std::cout << "after test" << std::endl;
-	while(z->next->next)
-	{
-		y_less_one = y;
-		y = y->next;
-		z = z->next->next;
+		return a;
 	}
-	while (z->next)
+	while(z->next && z->next->next)	// count across to end of this set
 	{
-		y_less_one = y;
+		y_less_one = y;				// tracks end of first subset
+		y = y->next;				// tracks beginning of second subset
+		z = z->next->next;			// tracks end of second subset
+	}
+	while (z->next)					// once we are near the end, moves forward one at 
+	{								// a time to the very end
+		y_less_one = y;				
 		y = y->next;
 		z = z->next;
 	}
-	
 
-	std::cout << x->i << " " << y_less_one->i << " " << y->i << " " << z->i <<std::endl;
-	y_less_one->next=0;
+	y_less_one->next=0;				// split up the set into two
 	z->next=0;
 
-	first = ms(x,y_less_one);					
-	last = ms(y,z);
-		 
-	std::cout << "here";
-	while (first || last)
+	a = ms(a,y_less_one);			// recursive merge sort calls
+	b = ms(y,z);					//
+
+	while (a || b)					// as long as we havent reach the end of both
 	{
-		if (compare(first,last))
+		if (compare(a,b))
 		{
-			result->next = first;
-			first=first->next;
+			H->next = a;			// head tells the previous winner to point to the winner
+			H=a;					// head points to the winner
+			a=a->next;				// a moves forward so the next a in line is considered
 		}
 		else
 		{
-		 	result->next = last;
-			last=last->next;
+			H->next = b;
+			H=b;
+			b=b->next;
 		}
-		result=result->next;
 	}
-	return result;
-
+	return S->next;					// S isn't part of the results, it just points to them
 }
 
 int main()
@@ -101,13 +103,17 @@ int main()
 	l->i = 3;
 	l->add(2);
 	l->add(16);
+	l->add(6);
+	l->add(216);
+	l->add(1);
+	l->add(36);
 	l->add(7);
+	l->add(4);
 
 	l->show(l);
-
-	ms(l,l->next->next->next);
+	std::cout << std::endl;
+	l = ms(l,l->tail(l));
 	l->show(l);
 
-	std::cout << "blrffpt" << std::endl;
 	return 0;
 }
