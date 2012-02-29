@@ -9,15 +9,11 @@ class vertex
 		bool visited;
 		vertex(char d):data(d),visited(0){};
 };
-class graph
-{
-	public:
-		vertex* head;
-};
 
 bool findroute(vertex* a, vertex* b)
 {
 	std::cout << "in: " << a->data << "," << b->data << std::endl;
+
 	a->visited = 1;
 	if (a == b){return 1;}
 
@@ -25,6 +21,7 @@ bool findroute(vertex* a, vertex* b)
 	{
 		if (!x->visited && (findroute(x,b) == 1)){return 1;}
 	}
+	return 0;
 }
 
 int main()
@@ -36,6 +33,7 @@ int main()
 	vertex* D = new vertex('D');
 	vertex* E = new vertex('E');
 	vertex* F = new vertex('F');
+	vertex* X = new vertex('X');
 
 	A->v.push_back(B);
 	B->v.push_back(C);
@@ -43,10 +41,7 @@ int main()
 	C->v.push_back(B);
 	C->v.push_back(D);
 	D->v.push_back(A);
-	//F->v.push_back(A);
 
-	std::cout << "found: " << findroute(B,A) << std::endl;
-
-	std::cout << "yahhhh" << std::endl;
+	std::cout << "found: " << findroute(A,X) << std::endl;
 	return 0;
 }
