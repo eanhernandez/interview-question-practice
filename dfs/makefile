@@ -2,7 +2,7 @@ TARGET=dfs
 
 CC=g++
 
-CFLAGS=-std=c++11
+CFLAGS=-std=c++0x
 
 all : clean $(TARGET) test
 
