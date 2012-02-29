@@ -104,7 +104,6 @@ int main()
 	l->add(2);
 	l->add(16);
 	l->add(6);
-	l->add(216);
 	l->add(1);
 	l->add(36);
 	l->add(7);
